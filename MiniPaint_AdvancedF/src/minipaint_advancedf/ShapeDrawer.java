@@ -526,11 +526,26 @@ int selectedIndex = ShapeListCobmoBox.getSelectedIndex();
                     selectedShape.getProperties().put("height", newHeight);
                 }
             } else if (selectedShape instanceof Square) {
-                
+                // Prompt for new side length
                 String newSideInput = JOptionPane.showInputDialog(this, "Enter new side length:");
                 if (newSideInput != null) {
                     double newSide = Double.parseDouble(newSideInput);
+
+                    // Update the side property
                     selectedShape.getProperties().put("side", newSide);
+                }
+            } else if (selectedShape instanceof LineSegment) {
+                // Prompt for new x2 and y2
+                String newX2Input = JOptionPane.showInputDialog(this, "Enter new x2:");
+                String newY2Input = JOptionPane.showInputDialog(this, "Enter new y2:");
+
+                if (newX2Input != null && newY2Input != null) {
+                    double newX2 = Double.parseDouble(newX2Input);
+                    double newY2 = Double.parseDouble(newY2Input);
+
+                    // Update the endpoint properties
+                    selectedShape.getProperties().put("endX", newX2);
+                    selectedShape.getProperties().put("endY", newY2);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Resize operation not supported for this shape.", "Error", JOptionPane.WARNING_MESSAGE);
