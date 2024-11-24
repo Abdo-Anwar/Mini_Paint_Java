@@ -56,7 +56,7 @@
                           <Component id="DeleteButton" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="colorizqButton" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="PositionChangeButton" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Component id="PositionChangeButton1" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                          <Component id="ResizeButton" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -117,7 +117,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="PositionChangeButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="PositionChangeButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="ResizeButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -367,7 +367,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorizqButton4ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="PositionChangeButton1">
+    <Component class="javax.swing.JButton" name="ResizeButton">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="ff" red="33" type="rgb"/>
@@ -380,7 +380,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PositionChangeButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResizeButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

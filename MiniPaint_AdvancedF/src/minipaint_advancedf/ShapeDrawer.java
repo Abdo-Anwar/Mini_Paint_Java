@@ -36,8 +36,12 @@ public class ShapeDrawer extends javax.swing.JFrame {
             circle.setColor(Color.BLACK);
             circle.setFillColor(Color.RED);
             this.currentShape = circle;
+           
+            
             circleCount++;
             String shapeName = "Circle" + String.format("%02d", circleCount);
+            
+            
             ShapeListCobmoBox.addItem(shapeName);
             setShape(circle);
             
@@ -144,7 +148,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
         colorizqButton2 = new javax.swing.JButton();
         colorizqButton3 = new javax.swing.JButton();
         colorizqButton4 = new javax.swing.JButton();
-        PositionChangeButton1 = new javax.swing.JButton();
+        ResizeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mini Paint");
@@ -282,12 +286,12 @@ public class ShapeDrawer extends javax.swing.JFrame {
             }
         });
 
-        PositionChangeButton1.setBackground(new java.awt.Color(51, 255, 204));
-        PositionChangeButton1.setText("Resize");
-        PositionChangeButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        PositionChangeButton1.addActionListener(new java.awt.event.ActionListener() {
+        ResizeButton.setBackground(new java.awt.Color(51, 255, 204));
+        ResizeButton.setText("Resize");
+        ResizeButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ResizeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PositionChangeButton1ActionPerformed(evt);
+                ResizeButtonActionPerformed(evt);
             }
         });
 
@@ -313,7 +317,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
                             .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(colorizqButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PositionChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PositionChangeButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ResizeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,7 +367,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PositionChangeButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PositionChangeButton1)
+                .addComponent(ResizeButton)
                 .addGap(44, 44, 44))
         );
 
@@ -491,9 +495,58 @@ public class ShapeDrawer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_colorizqButton4ActionPerformed
 
-    private void PositionChangeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PositionChangeButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PositionChangeButton1ActionPerformed
+    private void ResizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResizeButtonActionPerformed
+int selectedIndex = ShapeListCobmoBox.getSelectedIndex();
+
+    if (selectedIndex >= 0) {
+        
+        Shape selectedShape = drawingEngine.getShapes().get(selectedIndex);
+
+        try {
+            if (selectedShape instanceof Circle) {
+                
+                String newRadiusInput = JOptionPane.showInputDialog(this, "Enter new radius:");
+                if (newRadiusInput != null) {
+                    double newRadius = Double.parseDouble(newRadiusInput);
+
+                    selectedShape.getProperties().put("radius", newRadius);
+                }
+                
+                
+            } else if (selectedShape instanceof Rectangle) {
+                
+                String newWidthInput = JOptionPane.showInputDialog(this, "Enter new width:");
+                String newHeightInput = JOptionPane.showInputDialog(this, "Enter new height:");
+
+                if (newWidthInput != null && newHeightInput != null) {
+                    double newWidth = Double.parseDouble(newWidthInput);
+                    double newHeight = Double.parseDouble(newHeightInput);
+
+                    selectedShape.getProperties().put("width", newWidth);
+                    selectedShape.getProperties().put("height", newHeight);
+                }
+            } else if (selectedShape instanceof Square) {
+                
+                String newSideInput = JOptionPane.showInputDialog(this, "Enter new side length:");
+                if (newSideInput != null) {
+                    double newSide = Double.parseDouble(newSideInput);
+                    selectedShape.getProperties().put("side", newSide);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Resize operation not supported for this shape.", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            
+            JOptionPane.showMessageDialog(this, "Shape resized successfully.");
+            drawPanel.repaint();
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numeric values.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Please select a shape to resize.", "Error", JOptionPane.WARNING_MESSAGE);
+    }
+    }//GEN-LAST:event_ResizeButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -533,7 +586,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DeleteButton;
     private javax.swing.JButton PositionChangeButton;
-    private javax.swing.JButton PositionChangeButton1;
+    private javax.swing.JButton ResizeButton;
     private javax.swing.JComboBox<String> ShapeListCobmoBox;
     private javax.swing.JButton circleButton;
     private javax.swing.JButton colorizqButton;
