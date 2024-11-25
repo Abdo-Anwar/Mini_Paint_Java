@@ -1,0 +1,2 @@
+Circle,100,100,radius=50.0,color=-16777216,fillColor=-65536
+Square,100,100,side=50.0,color=-16777216,fillColor=-16711936

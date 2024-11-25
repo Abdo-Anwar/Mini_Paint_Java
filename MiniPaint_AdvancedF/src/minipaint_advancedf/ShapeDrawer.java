@@ -2,13 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 public class ShapeDrawer extends javax.swing.JFrame {
 
    private Shape currentShape;
    private DrawingEngineImpl drawingEngine;
+   private List<List<Shape>> ListOfshapesList;
    
+    private int CurrentState=0;
+    private int LastEdit;
     private int circleCount = 0;
     private int squareCount = 0;
     private int rectangleCount = 0;
@@ -22,6 +29,8 @@ public class ShapeDrawer extends javax.swing.JFrame {
      public void setShape(Shape shape) {
         //this.currentShape = shape;
         drawingEngine.addShape(shape);  
+//        ListOfshapesList[CurrentState]=drawingEngine.getShapes();
+//        ListOfshapesList.set(CurrentState, drawingEngine.getShapes());
         drawPanel.repaint();  
     }
     
@@ -146,8 +155,8 @@ public class ShapeDrawer extends javax.swing.JFrame {
         PositionChangeButton = new javax.swing.JButton();
         colorizqButton1 = new javax.swing.JButton();
         colorizqButton2 = new javax.swing.JButton();
-        colorizqButton3 = new javax.swing.JButton();
-        colorizqButton4 = new javax.swing.JButton();
+        LoadButton = new javax.swing.JButton();
+        SaveButton = new javax.swing.JButton();
         ResizeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -268,21 +277,21 @@ public class ShapeDrawer extends javax.swing.JFrame {
             }
         });
 
-        colorizqButton3.setBackground(new java.awt.Color(153, 255, 255));
-        colorizqButton3.setText("Load");
-        colorizqButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        colorizqButton3.addActionListener(new java.awt.event.ActionListener() {
+        LoadButton.setBackground(new java.awt.Color(153, 255, 255));
+        LoadButton.setText("Load");
+        LoadButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        LoadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorizqButton3ActionPerformed(evt);
+                LoadButtonActionPerformed(evt);
             }
         });
 
-        colorizqButton4.setBackground(new java.awt.Color(153, 255, 255));
-        colorizqButton4.setText("Save");
-        colorizqButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        colorizqButton4.addActionListener(new java.awt.event.ActionListener() {
+        SaveButton.setBackground(new java.awt.Color(153, 255, 255));
+        SaveButton.setText("Save");
+        SaveButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorizqButton4ActionPerformed(evt);
+                SaveButtonActionPerformed(evt);
             }
         });
 
@@ -307,10 +316,10 @@ public class ShapeDrawer extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                             .addComponent(colorizqButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(colorizqButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(SaveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(colorizqButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(LoadButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(colorizqButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,8 +363,8 @@ public class ShapeDrawer extends javax.swing.JFrame {
                     .addComponent(colorizqButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(colorizqButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colorizqButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -487,13 +496,35 @@ public class ShapeDrawer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_colorizqButton2ActionPerformed
 
-    private void colorizqButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorizqButton3ActionPerformed
+    private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_colorizqButton3ActionPerformed
+    }//GEN-LAST:event_LoadButtonActionPerformed
 
-    private void colorizqButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorizqButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_colorizqButton4ActionPerformed
+    private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
+         JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Save Shapes File");
+    int userSelection = fileChooser.showSaveDialog(this);
+
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        File fileToSave = fileChooser.getSelectedFile();
+        
+        String fileName = fileToSave.getAbsolutePath();
+
+        
+        if (!fileName.endsWith(".txt")) {
+            fileName += ".txt";
+        }
+        try {
+           
+            ShapeFileHandler.writeShapesToFile( drawingEngine.getShapes(),fileName);
+            JOptionPane.showMessageDialog(this, "Shapes saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+        
+        
+    }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void ResizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResizeButtonActionPerformed
 int selectedIndex = ShapeListCobmoBox.getSelectedIndex();
@@ -595,20 +626,22 @@ int selectedIndex = ShapeListCobmoBox.getSelectedIndex();
             public void run() {
                 new ShapeDrawer().setVisible(true);
             }
+            
+            
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DeleteButton;
+    private javax.swing.JButton LoadButton;
     private javax.swing.JButton PositionChangeButton;
     private javax.swing.JButton ResizeButton;
+    private javax.swing.JButton SaveButton;
     private javax.swing.JComboBox<String> ShapeListCobmoBox;
     private javax.swing.JButton circleButton;
     private javax.swing.JButton colorizqButton;
     private javax.swing.JButton colorizqButton1;
     private javax.swing.JButton colorizqButton2;
-    private javax.swing.JButton colorizqButton3;
-    private javax.swing.JButton colorizqButton4;
     private javax.swing.JPanel drawPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
