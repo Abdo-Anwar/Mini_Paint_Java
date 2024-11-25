@@ -49,7 +49,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             
             circleCount++;
             String shapeName = "Circle" + String.format("%02d", circleCount);
-            
+            circle.setName(shapeName);
             
             ShapeListCobmoBox.addItem(shapeName);
             setShape(circle);
@@ -73,6 +73,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             this.currentShape = rectangle;
             rectangleCount++;
             String shapeName = "Rectangle" + String.format("%02d", rectangleCount);
+            rectangle.setName(shapeName);
             ShapeListCobmoBox.addItem(shapeName);
             
             setShape(rectangle);
@@ -94,6 +95,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             this.currentShape = square;
              squareCount++;
             String shapeName = "Square" + String.format("%02d", squareCount);
+            square.setName(shapeName);
             ShapeListCobmoBox.addItem(shapeName);
             
             setShape(square);
@@ -116,6 +118,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             this.currentShape = line;
             lineCount++;
             String shapeName = "Line" + String.format("%02d", lineCount);
+            line.setName(shapeName);
             ShapeListCobmoBox.addItem(shapeName);
             setShape(line);
         } catch (NumberFormatException e) {

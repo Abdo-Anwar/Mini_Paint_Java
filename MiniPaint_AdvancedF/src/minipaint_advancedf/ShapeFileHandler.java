@@ -16,16 +16,19 @@ public class ShapeFileHandler {
             for (Shape shape : shapes) {
                 StringBuilder line = new StringBuilder();
                 
-                // Determine the shape type
-                if (shape instanceof Circle) {
-                    line.append("Circle,");
-                } else if (shape instanceof Rectangle) {
-                    line.append("Rectangle,");
-                } else if (shape instanceof Square) {
-                    line.append("Square,");
-                } else if (shape instanceof LineSegment) {
-                    line.append("LineSegment,");
+                 if (shape.getName() != null) {
+                     System.out.println(shape.getName());
+                line.append(shape.getName()).append(",");
                 }
+//                if (shape instanceof Circle) {
+//                    line.append("Circle,");
+//                } else if (shape instanceof Rectangle) {
+//                    line.append("Rectangle,");
+//                } else if (shape instanceof Square) {
+//                    line.append("Square,");
+//                } else if (shape instanceof LineSegment) {
+//                    line.append("LineSegment,");
+//                }
 
                 // Add position
                 Point position = shape.getPosition();
@@ -55,60 +58,70 @@ public class ShapeFileHandler {
     }
     
     public static List<Shape> readShapesFromFile(String fileName) throws IOException {
-        List<Shape> shapes = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                String shapeType = parts[0];
-                Point position = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
+         List<Shape> shapes = new ArrayList<>();
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+            
+            // Extract the shape's name, which includes the type (e.g., Circle01)
+            String shapeName = parts[0];
+            
+            // Determine the shape type from the name prefix
+            String shapeType = shapeName.replaceAll("\\d", ""); // Remove numbers to extract type
+            
+            // Extract position
+            Point position = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
 
-                Map<String, Double> properties = new HashMap<>();
-                Color color = null, fillColor = null;
+            // Extract properties
+            Map<String, Double> properties = new HashMap<>();
+            Color color = null, fillColor = null;
 
-                for (int i = 3; i < parts.length; i++) {
-                    String[] keyValue = parts[i].split("=");
-                    switch (keyValue[0]) {
-                        case "color":
-                            color = new Color(Integer.parseInt(keyValue[1]));
-                            break;
-                        case "fillColor":
-                            fillColor = new Color(Integer.parseInt(keyValue[1]));
-                            break;
-                        default:
-                            properties.put(keyValue[0], Double.parseDouble(keyValue[1]));
-                            break;
-                    }
-                }
-
-                // Create the shape based on the type
-                Shape shape = null;
-                switch (shapeType) {
-                    case "Circle":
-                        shape = new Circle(position, properties.get("radius"));
+            for (int i = 3; i < parts.length; i++) {
+                String[] keyValue = parts[i].split("=");
+                switch (keyValue[0]) {
+                    case "color":
+                        color = new Color(Integer.parseInt(keyValue[1]));
                         break;
-                    case "Rectangle":
-                        shape = new Rectangle(position, properties.get("width"), properties.get("height"));
+                    case "fillColor":
+                        fillColor = new Color(Integer.parseInt(keyValue[1]));
                         break;
-                    case "Square":
-                        shape = new Square(position, properties.get("side"));
+                    default:
+                        properties.put(keyValue[0], Double.parseDouble(keyValue[1]));
                         break;
-                    case "LineSegment":
-                        Point endPoint = new Point(properties.get("endX").intValue(), properties.get("endY").intValue());
-                        shape = new LineSegment(position, endPoint);
-                        break;
-                }
-
-                if (shape != null) {
-                    shape.setProperties(properties);
-                    shape.setColor(color);
-                    shape.setFillColor(fillColor);
-                    shapes.add(shape);
                 }
             }
+
+            // Create the shape based on the type
+            Shape shape = null;
+            switch (shapeType) {
+                case "Circle":
+                    shape = new Circle(position, properties.get("radius"));
+                    break;
+                case "Rectangle":
+                    shape = new Rectangle(position, properties.get("width"), properties.get("height"));
+                    break;
+                case "Square":
+                    shape = new Square(position, properties.get("side"));
+                    break;
+                case "LineSegment":
+                    Point endPoint = new Point(properties.get("endX").intValue(), properties.get("endY").intValue());
+                    shape = new LineSegment(position, endPoint);
+                    break;
+            }
+
+            // If the shape is created, set its properties
+            if (shape != null) {
+                shape.setName(shapeName); // Set the shape's name
+                shape.setProperties(properties);
+                shape.setColor(color);
+                shape.setFillColor(fillColor);
+                shapes.add(shape);
+            }
         }
-        return shapes;
     }
+    return shapes;
+}
      public static void main(String args[]) {
          
 //       DrawingEngineImpl engine = new DrawingEngineImpl();

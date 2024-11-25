@@ -11,4 +11,6 @@ public interface Shape {
     void setFillColor(Color color);
     Color getFillColor();
     void draw(Graphics canvas);
+    void setName(String name);
+    String getName();
 }

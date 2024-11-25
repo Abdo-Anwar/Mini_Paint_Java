@@ -7,7 +7,17 @@ public abstract class AbstractShape implements Shape {
     protected Color color;
     protected Color fillColor;
     protected Point position;
+    private String name;
     
+    
+    @Override
+    public String getName() {
+        return name;
+    }
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
     @Override
     public void setPosition(Point position) {
         this.position = position;
