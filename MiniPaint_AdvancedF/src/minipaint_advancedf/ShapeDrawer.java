@@ -159,8 +159,8 @@ public class ShapeDrawer extends javax.swing.JFrame {
         DeleteButton = new javax.swing.JButton();
         colorizqButton = new javax.swing.JButton();
         PositionChangeButton = new javax.swing.JButton();
-        colorizqButton1 = new javax.swing.JButton();
-        colorizqButton2 = new javax.swing.JButton();
+        UndoButton = new javax.swing.JButton();
+        RedoButton = new javax.swing.JButton();
         LoadButton = new javax.swing.JButton();
         SaveButton = new javax.swing.JButton();
         ResizeButton = new javax.swing.JButton();
@@ -222,10 +222,11 @@ public class ShapeDrawer extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(204, 255, 255));
+        jLabel1.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Shapes");
-        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel1.setOpaque(true);
 
         ShapeListCobmoBox.setToolTipText("Choose Shape");
@@ -236,6 +237,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Select Shape");
 
         DeleteButton.setBackground(new java.awt.Color(0, 255, 204));
@@ -265,21 +267,21 @@ public class ShapeDrawer extends javax.swing.JFrame {
             }
         });
 
-        colorizqButton1.setBackground(new java.awt.Color(153, 255, 255));
-        colorizqButton1.setText("Undo");
-        colorizqButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        colorizqButton1.addActionListener(new java.awt.event.ActionListener() {
+        UndoButton.setBackground(new java.awt.Color(153, 255, 255));
+        UndoButton.setText("Undo");
+        UndoButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        UndoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorizqButton1ActionPerformed(evt);
+                UndoButtonActionPerformed(evt);
             }
         });
 
-        colorizqButton2.setBackground(new java.awt.Color(153, 255, 255));
-        colorizqButton2.setText("Redo");
-        colorizqButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        colorizqButton2.addActionListener(new java.awt.event.ActionListener() {
+        RedoButton.setBackground(new java.awt.Color(153, 255, 255));
+        RedoButton.setText("Redo");
+        RedoButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        RedoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorizqButton2ActionPerformed(evt);
+                RedoButtonActionPerformed(evt);
             }
         });
 
@@ -320,13 +322,13 @@ public class ShapeDrawer extends javax.swing.JFrame {
                     .addComponent(ShapeListCobmoBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                            .addComponent(colorizqButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(UndoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(SaveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LoadButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(colorizqButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)))
+                            .addComponent(RedoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -365,13 +367,13 @@ public class ShapeDrawer extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(colorizqButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colorizqButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RedoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ShapeListCobmoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -494,13 +496,13 @@ public class ShapeDrawer extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_PositionChangeButtonActionPerformed
 
-    private void colorizqButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorizqButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_colorizqButton1ActionPerformed
+    private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
+        JOptionPane.showMessageDialog(this,"Coming sooon!");
+    }//GEN-LAST:event_UndoButtonActionPerformed
 
-    private void colorizqButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorizqButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_colorizqButton2ActionPerformed
+    private void RedoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RedoButtonActionPerformed
+      JOptionPane.showMessageDialog(this,"Coming sooon!");
+    }//GEN-LAST:event_RedoButtonActionPerformed
 
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
     JFileChooser fileChooser = new JFileChooser();
@@ -666,13 +668,13 @@ int selectedIndex = ShapeListCobmoBox.getSelectedIndex();
     private javax.swing.JButton DeleteButton;
     private javax.swing.JButton LoadButton;
     private javax.swing.JButton PositionChangeButton;
+    private javax.swing.JButton RedoButton;
     private javax.swing.JButton ResizeButton;
     private javax.swing.JButton SaveButton;
     private javax.swing.JComboBox<String> ShapeListCobmoBox;
+    private javax.swing.JButton UndoButton;
     private javax.swing.JButton circleButton;
     private javax.swing.JButton colorizqButton;
-    private javax.swing.JButton colorizqButton1;
-    private javax.swing.JButton colorizqButton2;
     private javax.swing.JPanel drawPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
