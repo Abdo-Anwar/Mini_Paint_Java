@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 
 
 import java.awt.*;
@@ -57,26 +54,25 @@ public class ShapeFileHandler {
         }
     }
     
-    public static List<Shape> readShapesFromFile(String fileName) throws IOException {
-         List<Shape> shapes = new ArrayList<>();
+    public static List<Shape> readShapesFromFile(String fileName,ShapeDrawer drawer) throws IOException {
+    List<Shape> shapes = new ArrayList<>();
+   
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(",");
             
-            // Extract the shape's name, which includes the type (e.g., Circle01)
+            // Extract the shape's name (e.g., Line01)
             String shapeName = parts[0];
             
-            // Determine the shape type from the name prefix
-            String shapeType = shapeName.replaceAll("\\d", ""); // Remove numbers to extract type
-            
-            // Extract position
+            // Extract position (x and y coordinates)
             Point position = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
 
             // Extract properties
             Map<String, Double> properties = new HashMap<>();
             Color color = null, fillColor = null;
 
+            // Iterate through the remaining parts to extract key-value pairs
             for (int i = 3; i < parts.length; i++) {
                 String[] keyValue = parts[i].split("=");
                 switch (keyValue[0]) {
@@ -86,15 +82,29 @@ public class ShapeFileHandler {
                     case "fillColor":
                         fillColor = new Color(Integer.parseInt(keyValue[1]));
                         break;
+                    case "endX":
+                        properties.put("endX", Double.parseDouble(keyValue[1]));
+                        break;
+                    case "endY":
+                        properties.put("endY", Double.parseDouble(keyValue[1]));
+                        break;
                     default:
                         properties.put(keyValue[0], Double.parseDouble(keyValue[1]));
                         break;
                 }
             }
 
-            // Create the shape based on the type
+            // Create the shape based on the type (LineSegment, Circle, etc.)
             Shape shape = null;
+            String shapeType = shapeName.replaceAll("\\d", ""); // Extract type (Line, Circle, etc.)
             switch (shapeType) {
+                case "Line":
+                    // Ensure the properties map contains both "endX" and "endY" for LineSegment
+                    if (properties.containsKey("endX") && properties.containsKey("endY")) {
+                        Point endPoint = new Point(properties.get("endX").intValue(), properties.get("endY").intValue());
+                        shape = new LineSegment(position, endPoint); // Pass both points
+                    }
+                    break;
                 case "Circle":
                     shape = new Circle(position, properties.get("radius"));
                     break;
@@ -103,10 +113,6 @@ public class ShapeFileHandler {
                     break;
                 case "Square":
                     shape = new Square(position, properties.get("side"));
-                    break;
-                case "LineSegment":
-                    Point endPoint = new Point(properties.get("endX").intValue(), properties.get("endY").intValue());
-                    shape = new LineSegment(position, endPoint);
                     break;
             }
 
@@ -117,6 +123,7 @@ public class ShapeFileHandler {
                 shape.setColor(color);
                 shape.setFillColor(fillColor);
                 shapes.add(shape);
+                drawer.addShapeToList(shape.getName());
             }
         }
     }

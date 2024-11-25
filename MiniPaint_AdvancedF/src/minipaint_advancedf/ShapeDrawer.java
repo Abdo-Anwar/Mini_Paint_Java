@@ -33,7 +33,10 @@ public class ShapeDrawer extends javax.swing.JFrame {
 //        ListOfshapesList.set(CurrentState, drawingEngine.getShapes());
         drawPanel.repaint();  
     }
-    
+     public void addShapeToList(String shapeName) {
+       
+        ShapeListCobmoBox.addItem(shapeName);
+    }
      private void createCircle() {
         try {
             int x = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter x position:", "100"));
@@ -51,7 +54,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             String shapeName = "Circle" + String.format("%02d", circleCount);
             circle.setName(shapeName);
             
-            ShapeListCobmoBox.addItem(shapeName);
+            ShapeListCobmoBox.addItem(circle.getName());
             setShape(circle);
             
         } catch (NumberFormatException e) {
@@ -74,7 +77,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             rectangleCount++;
             String shapeName = "Rectangle" + String.format("%02d", rectangleCount);
             rectangle.setName(shapeName);
-            ShapeListCobmoBox.addItem(shapeName);
+            ShapeListCobmoBox.addItem(rectangle.getName());
             
             setShape(rectangle);
         } catch (NumberFormatException e) {
@@ -96,7 +99,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
              squareCount++;
             String shapeName = "Square" + String.format("%02d", squareCount);
             square.setName(shapeName);
-            ShapeListCobmoBox.addItem(shapeName);
+            ShapeListCobmoBox.addItem(square.getName());
             
             setShape(square);
         } catch (NumberFormatException e) {
@@ -119,7 +122,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             lineCount++;
             String shapeName = "Line" + String.format("%02d", lineCount);
             line.setName(shapeName);
-            ShapeListCobmoBox.addItem(shapeName);
+            ShapeListCobmoBox.addItem(line.getName());
             setShape(line);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Invalid input. Please enter numeric values for line positions.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -500,11 +503,36 @@ public class ShapeDrawer extends javax.swing.JFrame {
     }//GEN-LAST:event_colorizqButton2ActionPerformed
 
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
-        // TODO add your handling code here:
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Load Shapes File");
+    int userSelection = fileChooser.showOpenDialog(this);
+
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        File fileToLoad = fileChooser.getSelectedFile();
+        String fileName = fileToLoad.getAbsolutePath();  // Corrected from fileToSave to fileToLoad
+
+        try {
+            // Assuming ShapeFileHandler.readShapesFromFile returns a List<Shape>
+            List<Shape> loadedShapes = ShapeFileHandler.readShapesFromFile(fileName,this);
+            
+            // Add each shape individually to the drawing engine
+            for (Shape shape : loadedShapes) {
+                drawingEngine.addShape(shape); // Add each shape one by one
+            }
+            
+            // Update the shapes in your engine
+            drawPanel.repaint(); // Refresh the canvas
+            
+            JOptionPane.showMessageDialog(this, "Shapes loaded successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error loading file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+        
     }//GEN-LAST:event_LoadButtonActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-         JFileChooser fileChooser = new JFileChooser();
+    JFileChooser fileChooser = new JFileChooser();
     fileChooser.setDialogTitle("Save Shapes File");
     int userSelection = fileChooser.showSaveDialog(this);
 
@@ -596,7 +624,7 @@ int selectedIndex = ShapeListCobmoBox.getSelectedIndex();
         JOptionPane.showMessageDialog(this, "Please select a shape to resize.", "Error", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_ResizeButtonActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
