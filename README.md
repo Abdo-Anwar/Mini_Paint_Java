@@ -162,3 +162,12 @@ To use the **Mini Paint App**, follow these steps:
    - Click "Load" and select the file (e.g., `shapes.txt`).
    - The shapes will be loaded and displayed on the canvas.
   
+## License
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+For questions, feedback, or collaboration, feel free to reach out:
+
+- **Your Name**: [abd.ahm.anwar@gamil.com](mailto:abd.ahm.anwar@gamil.com)
+- **GitHub**: [Abdo-Anwar](https://github.com/Abdo-Anwar)
+- **LinkedIn**: [abdelrhman-anwar](https://www.linkedin.com/in/abdelrhman-anwar)
