@@ -8,5 +8,6 @@
 /MiniPaint_AdvancedF/build.xml/
 /MiniPaint_AdvancedF/
 /MiniPaint_AdvancedF/manifest.mf/
-/out/
-/lab8.iml/
+
+lab8.iml
+/.idea/
