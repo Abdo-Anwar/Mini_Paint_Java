@@ -76,11 +76,13 @@ To run the **Mini Paint App** locally, follow these steps:
    java -cp src Main
 
 ## Screenshots/GIFs
-Here are some screenshots and GIFs demonstrating the functionality of the **Mini Paint App**:
+Here are some screenshots and GIFs demonstrating the functionality of the **Mini Paint App:**
 
 
-- **Main application window:** 
-  ![main_Window]("Images/main_Window.png")
+
+- **Main application window:**
+
+  ![Drawing Shapes](Images/mian.gif)
 
 - **Drawing  shapes:**
   ![Drawing Shapes](Images/createCir.gif)
@@ -168,6 +170,6 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 ## Contact
 For questions, feedback, or collaboration, feel free to reach out:
 
-- **Your Name**: [abd.ahm.anwar@gamil.com](mailto:abd.ahm.anwar@gamil.com)
+- **Emial**: [abd.ahm.anwar@gamil.com](mailto:abd.ahm.anwar@gamil.com)
 - **GitHub**: [Abdo-Anwar](https://github.com/Abdo-Anwar)
 - **LinkedIn**: [abdelrhman-anwar](https://www.linkedin.com/in/abdelrhman-anwar)
