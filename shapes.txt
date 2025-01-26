@@ -1,0 +1,4 @@
+Circle01,300,100,radius=100.0,color=-16777216,fillColor=-65536
+Square01,120,150,side=50.0,color=-16777216,fillColor=-16711936
+Rectangle02,100,200,width=200.0,height=100.0,color=-16777216,fillColor=-16776961
+Line01,50,50,endY=150.0,endX=150.0,color=-16777216
