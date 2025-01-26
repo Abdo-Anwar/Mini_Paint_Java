@@ -21,6 +21,21 @@ public class ShapeDrawer extends javax.swing.JFrame {
     private int rectangleCount = 0;
     private int lineCount = 0;
     
+    public void increseCount(String type){
+       switch(type) {
+        case "Line":  
+            lineCount++; 
+            break;
+        case "Circle":
+            circleCount++;
+            break;
+        case "Rectangle":
+            rectangleCount++;
+        case "Square":
+            squareCount++;
+            break;
+        }
+    }
     public ShapeDrawer() {
         initComponents();
         setLocationRelativeTo(null); 
@@ -42,7 +57,13 @@ public class ShapeDrawer extends javax.swing.JFrame {
             int x = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter x position:", "100"));
             int y = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter y position:", "100"));
             double radius = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter radius:", "50"));
-
+            int panelWidth = drawPanel.getWidth();
+            int panelHeight = drawPanel.getHeight();
+            if (x - radius < 0 || x + radius > panelWidth || y - radius < 0 || y + radius > panelHeight) {
+            JOptionPane.showMessageDialog(this, "Shape exceeds panel boundaries. Please enter valid values.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+            
             Point position = new Point(x, y);
             Circle circle = new Circle(position, radius);
             circle.setColor(Color.BLACK);
@@ -68,7 +89,15 @@ public class ShapeDrawer extends javax.swing.JFrame {
             int y = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter y position:", "100"));
             double width = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter width:", "100"));
             double height = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter height:", "50"));
+            int panelWidth = drawPanel.getWidth();
+            int panelHeight = drawPanel.getHeight();
+            if (x < 0 || y < 0 || x + width > panelWidth || y + height > panelHeight) {
+            JOptionPane.showMessageDialog(this, "Rectangle exceeds panel boundaries.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+            
+            
             Point position = new Point(x, y);
             Rectangle rectangle = new Rectangle(position, width, height);
             rectangle.setColor(Color.BLACK);
@@ -90,7 +119,14 @@ public class ShapeDrawer extends javax.swing.JFrame {
             int x = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter x position:", "100"));
             int y = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter y position:", "100"));
             double side = Double.parseDouble(JOptionPane.showInputDialog(this, "Enter side length:", "50"));
-
+            int panelWidth = drawPanel.getWidth();
+            int panelHeight = drawPanel.getHeight();
+            if (x < 0 || y < 0 || x + side > panelWidth || y + side > panelHeight) {
+            JOptionPane.showMessageDialog(this, "Square exceeds panel boundaries.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+            
+            
             Point position = new Point(x, y);
             Square square = new Square(position, side);
             square.setColor(Color.BLACK);
@@ -114,6 +150,12 @@ public class ShapeDrawer extends javax.swing.JFrame {
             int x2 = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter x2 position:", "150"));
             int y2 = Integer.parseInt(JOptionPane.showInputDialog(this, "Enter y2 position:", "150"));
 
+            int panelWidth = drawPanel.getWidth();
+            int panelHeight = drawPanel.getHeight();
+            if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || x1 > panelWidth || y1 > panelHeight || x2 > panelWidth || y2 > panelHeight) {
+            JOptionPane.showMessageDialog(this, "Line exceeds panel boundaries.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
             Point start = new Point(x1, y1);
             Point end = new Point(x2, y2);
             LineSegment line = new LineSegment(start, end);
@@ -179,7 +221,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
         drawPanel.setLayout(drawPanelLayout);
         drawPanelLayout.setHorizontalGroup(
             drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 598, Short.MAX_VALUE)
         );
         drawPanelLayout.setVerticalGroup(
             drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,7 +361,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ShapeListCobmoBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ShapeListCobmoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -327,16 +369,13 @@ public class ShapeDrawer extends javax.swing.JFrame {
                             .addComponent(SaveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LoadButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(RedoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(colorizqButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PositionChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ResizeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(LoadButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(RedoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorizqButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PositionChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ResizeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,7 +387,7 @@ public class ShapeDrawer extends javax.swing.JFrame {
                         .addComponent(rectangleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(drawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -505,6 +544,12 @@ public class ShapeDrawer extends javax.swing.JFrame {
     }//GEN-LAST:event_RedoButtonActionPerformed
 
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
+     while (!drawingEngine.getShapes().isEmpty()) {
+        Shape shapeToDelete = drawingEngine.getShapes().get(0); 
+        drawingEngine.removeShape(shapeToDelete);
+        ShapeListCobmoBox.removeItemAt(0); 
+    }
+   
     JFileChooser fileChooser = new JFileChooser();
     fileChooser.setDialogTitle("Load Shapes File");
     int userSelection = fileChooser.showOpenDialog(this);

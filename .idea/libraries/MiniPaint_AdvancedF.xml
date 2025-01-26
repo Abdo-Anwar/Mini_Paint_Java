@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="MiniPaint_AdvancedF">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/MiniPaint_AdvancedF/dist/MiniPaint_AdvancedF.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

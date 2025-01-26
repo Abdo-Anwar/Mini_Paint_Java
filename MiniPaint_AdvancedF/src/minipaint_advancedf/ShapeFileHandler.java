@@ -1,6 +1,3 @@
-
-
-
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -27,17 +24,17 @@ public class ShapeFileHandler {
 //                    line.append("LineSegment,");
 //                }
 
-                // Add position
+                
                 Point position = shape.getPosition();
                 line.append(position.x).append(",").append(position.y).append(",");
 
-                // Add properties
+               
                 Map<String, Double> properties = shape.getProperties();
                 for (Map.Entry<String, Double> entry : properties.entrySet()) {
                     line.append(entry.getKey()).append("=").append(entry.getValue()).append(",");
                 }
 
-                // Add color and fill color
+                
                 Color color = shape.getColor();
                 Color fillColor = shape.getFillColor();
                 if (color != null) {
@@ -47,7 +44,7 @@ public class ShapeFileHandler {
                     line.append("fillColor=").append(fillColor.getRGB()).append(",");
                 }
 
-                // Remove the trailing comma and write to file
+                
                 writer.write(line.substring(0, line.length() - 1));
                 writer.newLine();
             }
@@ -62,17 +59,17 @@ public class ShapeFileHandler {
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(",");
             
-            // Extract the shape's name (e.g., Line01)
+            
             String shapeName = parts[0];
             
-            // Extract position (x and y coordinates)
+            
             Point position = new Point(Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
 
-            // Extract properties
+            
             Map<String, Double> properties = new HashMap<>();
             Color color = null, fillColor = null;
 
-            // Iterate through the remaining parts to extract key-value pairs
+            
             for (int i = 3; i < parts.length; i++) {
                 String[] keyValue = parts[i].split("=");
                 switch (keyValue[0]) {
@@ -94,31 +91,35 @@ public class ShapeFileHandler {
                 }
             }
 
-            // Create the shape based on the type (LineSegment, Circle, etc.)
+            
             Shape shape = null;
-            String shapeType = shapeName.replaceAll("\\d", ""); // Extract type (Line, Circle, etc.)
+            String shapeType = shapeName.replaceAll("\\d", "");
             switch (shapeType) {
                 case "Line":
-                    // Ensure the properties map contains both "endX" and "endY" for LineSegment
+                    
                     if (properties.containsKey("endX") && properties.containsKey("endY")) {
                         Point endPoint = new Point(properties.get("endX").intValue(), properties.get("endY").intValue());
                         shape = new LineSegment(position, endPoint); // Pass both points
                     }
+                    drawer.increseCount("Line");
                     break;
                 case "Circle":
                     shape = new Circle(position, properties.get("radius"));
+                    drawer.increseCount("Circle");
                     break;
                 case "Rectangle":
                     shape = new Rectangle(position, properties.get("width"), properties.get("height"));
+                    drawer.increseCount("Rectangle");
                     break;
                 case "Square":
                     shape = new Square(position, properties.get("side"));
+                    drawer.increseCount("Square");
                     break;
             }
 
-            // If the shape is created, set its properties
+           
             if (shape != null) {
-                shape.setName(shapeName); // Set the shape's name
+                shape.setName(shapeName); 
                 shape.setProperties(properties);
                 shape.setColor(color);
                 shape.setFillColor(fillColor);
@@ -129,7 +130,7 @@ public class ShapeFileHandler {
     }
     return shapes;
 }
-     public static void main(String args[]) {
+    // public static void main(String args[]) {
          
 //       DrawingEngineImpl engine = new DrawingEngineImpl();
 //       engine.addShape(new Circle(new Point(100, 150), 50));
@@ -154,7 +155,7 @@ public class ShapeFileHandler {
 //       
        
       
-     }
+  //   }
     
     
 }
