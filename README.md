@@ -78,25 +78,25 @@ To run the **Mini Paint App** locally, follow these steps:
 ## Screenshots/GIFs
 Here are some screenshots and GIFs demonstrating the functionality of the **Mini Paint App**:
 
-```markdown
-<!-- Add your screenshots or GIFs here -->
-- **Screenshot 1**: Main application window.
-  ![Main Window]("Images/main_Window.png")
 
-- **GIF 1**: Drawing  shapes.
-  ![Drawing Shapes]Images/createCir.gif)
+- **Main application window:** 
+  ![main_Window]("Images/main_Window.png")
 
-- **GIF 2**: Applay features Moving, Colorizing, resizing, and deleting.
-  ![features Moving, Colorizing, resizing, and deleting](Images/Features)
+- **Drawing  shapes:**
+  ![Drawing Shapes](Images/createCir.gif)
 
-- **GIF 3**: Save shapes.
-  ![Save](Images/savefile.gif)
+- **Apply features Moving, Colorizing, resizing, and deleting:**
+  ![Features](Images/Features.gif)
+  
+- **Save Shapes:**
 
-- **GIF 4**: Load shapes.
+   ![savefile](Images/savefile.gif)
+
+- **Load shapes:** 
   ![Load](Images/Load.gif)
-```
 
-## [UML Diagram
+
+## UML Diagram
 **UML class Digrame**
 ![UML](Images/UML.png)
 
